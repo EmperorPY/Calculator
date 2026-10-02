@@ -1,7 +1,10 @@
-import tkinter as tk
+import customtkinter as ctk
 
-root = tk.Tk()
+root = ctk.CTk()
+
 root.title("Calculator")
+
+ctk.set_appearance_mode("dark")
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -11,12 +14,15 @@ window_height = screen_height - task_bar_height
 
 root.geometry(f"{screen_width}x{window_height}+0+0")
 
+
 # Make columns equal
+
 for i in range(4):
     root.columnconfigure(i, weight=1)
 
 for i in range(7):
     root.rowconfigure(i, weight=1)
+
 
 equation = ""
 
@@ -24,51 +30,69 @@ equation = ""
 # ---------- FUNCTIONS ----------
 
 def update_display():
-    display.config(state="normal")
-    display.delete(0, tk.END)
+
+    display.configure(state="normal")
+
+    display.delete(0, ctk.END)
+
     display.insert(0, equation)
-    display.config(state="readonly")
+
+    display.configure(state="readonly")
 
 
 def press(value):
+
     global equation
 
     equation += value
+
     update_display()
 
 
 def clear():
+
     global equation
 
     equation = ""
+
     update_display()
 
 
 def backspace():
+
     global equation
 
     equation = equation[:-1]
+
     update_display()
 
 
 def calculate():
+
     global equation
 
     try:
+
         equation = str(eval(equation))
+
         update_display()
 
     except:
+
         equation = ""
-        display.config(state="normal")
-        display.delete(0, tk.END)
+
+        display.configure(state="normal")
+
+        display.delete(0, ctk.END)
+
         display.insert(0, "Error")
-        display.config(state="readonly")
+
+        display.configure(state="readonly")
 
 
 # ---------- TITLE ----------
 
-title = tk.Label(
+title = ctk.CTkLabel(
     root,
     text="Calculator",
     font=("Arial", 40)
@@ -84,7 +108,7 @@ title.grid(
 
 # ---------- DISPLAY ----------
 
-display = tk.Entry(
+display = ctk.CTkEntry(
     root,
     font=("Arial", 35),
     justify="right",
@@ -134,30 +158,39 @@ buttons = [
 for text, row, column in buttons:
 
     if text == "C" or text == "CE":
+
         command = clear
 
     elif text == "⌫":
+
         command = backspace
 
     elif text == "÷":
+
         command = lambda: press("/")
 
     elif text == "×":
+
         command = lambda: press("*")
 
     elif text == "−":
+
         command = lambda: press("-")
 
     elif text == "=":
+
         command = calculate
 
     elif text == "%":
+
         command = lambda: press("%")
 
     else:
+
         command = lambda x=text: press(x)
 
-    button = tk.Button(
+
+    button = ctk.CTkButton(
         root,
         text=text,
         font=("Arial", 25),
