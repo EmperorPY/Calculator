@@ -129,7 +129,7 @@ display.grid(
 
 buttons = [
     ("%", 2, 0),
-    ("CE", 2, 1),
+    ("Exit", 2, 1),
     ("C", 2, 2),
     ("⌫", 2, 3),
 
@@ -157,9 +157,12 @@ buttons = [
 
 for text, row, column in buttons:
 
-    if text == "C" or text == "CE":
+    if text == "C":
 
         command = clear
+
+    elif text =="Exit":
+        command = root.destroy
 
     elif text == "⌫":
 
