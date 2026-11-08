@@ -197,6 +197,8 @@ for text, row, column in buttons:
         root,
         text=text,
         font=("Arial", 25),
+        fg_color="black",
+        hover_color="blue",
         command=command
     )
 
